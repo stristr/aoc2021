@@ -1,5 +1,5 @@
 # 812/1469
-# 7:28/24:34
+# 3:55/9:12
 from sys import stdin
 from statistics import median
 
