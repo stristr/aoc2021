@@ -1,5 +1,5 @@
-# ?/?
-# ?:??/?:??
+# 812/1469
+# 7:28/24:34
 from sys import stdin
 from statistics import median
 
