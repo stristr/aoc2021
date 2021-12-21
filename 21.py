@@ -2,6 +2,7 @@
 # 12:11/21:45
 from sys import stdin
 from itertools import product
+from collections import Counter
 from functools import cache
 
 input = list(map(lambda line: int(line[-1]), stdin.read().strip().split('\n')))
@@ -16,20 +17,20 @@ while max(scores) < 1000:
     turn += 1
 print('a', min(scores) * roll)
 
-quants = list(product(range(1, 4), range(1, 4), range(1, 4)))
+quants = list(Counter(map(sum, product(*([[1, 2, 3]] * 3)))).items())
 
 @cache
 def quantize(positions, scores):
     win, lose = 0, 0
-    for i, j, k in quants:
-        p = normalize(positions[0] + i + j + k, 10)
+    for k, v in quants:
+        p = normalize(positions[0] + k, 10)
         s = scores[0] + p
         if s >= 21:
-            win += 1
+            win += v
         else:
             qlose, qwin = quantize((positions[1], p), (scores[1], s))
-            win += qwin
-            lose += qlose
+            win += qwin * v
+            lose += qlose * v
     return win, lose
 
 print('b', max(quantize(tuple(input), (0, 0))))
